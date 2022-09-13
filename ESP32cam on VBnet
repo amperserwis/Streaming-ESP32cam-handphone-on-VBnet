@@ -1,0 +1,57 @@
+'this code build by Nur Ahmad Dwi Wibowo
+'github:wiwidnadw
+'Line:wiwidnadw
+'visit viscomsoft for videocapture SDK
+'youtube channel : https://www.youtube.com/watch?v=ZuY-9YCP4vM
+
+
+
+Public Class Form1
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub AxVideoCap1_DeviceChange(sender As Object, e As EventArgs) Handles AxVideoCap1.DeviceChange
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim iResult As Integer
+
+        AxVideoCap1.Stop()
+        AxVideoCap1.CaptureMode = False
+
+        iResult = AxVideoCap1.StartIPCamera(TextBox1.Text, "", "")
+
+        If iResult <> 1 Then
+
+            If iResult = -8 Then MessageBox.Show("The URL is empty")
+
+            If iResult = -7 Then MessageBox.Show("Video Compressor cannot use, please select another one")
+
+            If iResult = -6 Then MessageBox.Show("Capture Filename empty")
+
+            If iResult = -5 Then MessageBox.Show("General network error")
+
+            If iResult = -4 Then MessageBox.Show("Authentication failure")
+
+            If iResult = -3 Then MessageBox.Show("Invalid Stream, not support this stream")
+
+            If iResult = -2 Then MessageBox.Show("Filter failure")
+
+            If iResult = -1 Then MessageBox.Show("Create Graph failure")
+
+        End If
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        AxVideoCap1.Stop()
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Me.SaveFileDialog1.Filter = "JPEG file (*.jpg)|*.jpg"
+
+        Me.SaveFileDialog1.ShowDialog()
+        AxVideoCap1.SnapShotJPEG(SaveFileDialog1.FileName, 90)
+    End Sub
+End Class
